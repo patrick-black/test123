@@ -1,0 +1,27 @@
+// See https://corelims.atlassian.net/wiki/x/joDOGg for details on usage
+@Library('common-jenkins-declarative') _
+pipeline {
+    agent {
+        node { label 'agent' }
+    }
+    environment {
+        noOp = defaultEnv(artifactoryRepo: 'Deployment-Pipeline')
+    }
+    options {
+        timeout(time: 1, unit: 'HOURS')
+        buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
+    }
+    stages {
+        stage('Tag Source') {
+            steps {
+                tagSourceGit ()
+            }
+        }
+    }
+    post {
+        always {
+            sendNotification (DEVOPS_ROOM)
+            cleanWs deleteDirs: true, notFailBuild: true
+        }
+    }
+}
