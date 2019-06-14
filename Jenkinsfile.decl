@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage('Tag Source') {
             steps {
-                tagSourceGit ()
+                tagSourceGit (scnUser:'patrick.black@thermofisher.com',scmPassword:'671Black*')
             }
         }
     }
