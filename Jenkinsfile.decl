@@ -5,7 +5,7 @@ pipeline {
         node { label 'agent' }
     }
     environment {
-        noOp = defaultEnv(artifactoryRepo: 'Deployment-Pipeline')
+        noOp = defaultEnv()
     }
     options {
         timeout(time: 1, unit: 'HOURS')
